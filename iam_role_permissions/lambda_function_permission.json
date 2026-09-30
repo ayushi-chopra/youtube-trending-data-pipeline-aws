@@ -1,0 +1,59 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GlueAccess",
+            "Effect": "Allow",
+            "Action": [
+                "glue:BatchCreatePartition",
+                "glue:GetDatabase",
+                "glue:GetDatabases",
+                "glue:CreateTable",
+                "glue:UpdateTable",
+                "glue:CreatePartition",
+                "glue:GetTable",
+                "glue:GetTables",
+                "glue:GetPartitions"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "S3Access",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": [
+                "arn:aws:s3:::yt-data-pipeline-bronze-layer-YOUR_ACCOUNT_ID-YOUR_AWS_REGION-YOUR_SUFFIX",
+                "arn:aws:s3:::yt-data-pipeline-silver-layer-YOUR_ACCOUNT_ID-YOUR_AWS_REGION-YOUR_SUFFIX",
+                "arn:aws:s3:::yt-data-pipeline-bronze-layer-YOUR_ACCOUNT_ID-YOUR_AWS_REGION-YOUR_SUFFIX/*",
+                "arn:aws:s3:::yt-data-pipeline-silver-layer-YOUR_ACCOUNT_ID-YOUR_AWS_REGION-YOUR_SUFFIX/*",
+                "arn:aws:s3:::yt-data-pipeline-glue-athena-result-YOUR_ACCOUNT_ID-YOUR_AWS_REGION-YOUR_SUFFIX/*",
+                "arn:aws:s3:::yt-data-pipeline-glue-athena-result-YOUR_ACCOUNT_ID-YOUR_AWS_REGION-YOUR_SUFFIX"
+            ]
+        },
+        {
+            "Sid": "SNSAccess",
+            "Effect": "Allow",
+            "Action": [
+                "sns:Publish"
+            ],
+            "Resource": "arn:aws:sns:YOUR_AWS_REGION:YOUR_ACCOUNT_ID:yt-data-pipeline-alerts"
+        },
+        {
+            "Sid": "AthenaAccess",
+            "Effect": "Allow",
+            "Action": [
+                "athena:StartQueryExecution",
+                "athena:GetQueryResults",
+                "athena:GetQueryExecution",
+                "athena:GetWorkGroup",
+                "athena:StopQueryExecution"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
